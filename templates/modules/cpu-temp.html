@@ -1,0 +1,14 @@
+<line-chart-plugin
+    ng-if="maxTemp"
+    
+    heading="CPU Temperature"
+    module-name="cpu_temp"
+    color="255,0,0"
+
+    max-value="maxTemp"
+    min-value="minTemp"
+    refresh-rate="1000"
+    
+    get-display-value="tempToDisplay"
+    metrics="tempMetrics">
+</line-chart-plugin>

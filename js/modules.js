@@ -38,6 +38,36 @@ linuxDash.directive('diskSpace', ['server', function(server) {
     };
 }]);
 
+linuxDash.directive('cpuTemp', ['server', function(server) {
+    return {
+        restrict: 'E',
+        scope: {},
+        templateUrl: 'templates/modules/cpu-temp.html',
+        link: function (scope) {
+
+            // get max ram available on machine before we 
+            // can start charting
+            server.get('cpu_temp', function (resp) {
+		scope.maxTemp = 100;
+		scope.minTemp = 0;
+            });
+
+            scope.tempToDisplay = function (serverResponseData) {
+                return serverResponseData['cpu_temp'];
+            };
+
+            scope.tempMetrics = [
+                {
+                    name: 'CPU TEMP',
+                    generate: function (serverResponseData) {
+                        return serverResponseData['cpu_temp'] + ' C';
+                    }
+                },
+		];
+        }
+    };
+}]);
+
 linuxDash.directive('ramChart', ['server', function(server) {
     return {
         restrict: 'E',
